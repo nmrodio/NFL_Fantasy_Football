@@ -1,0 +1,85 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+/* Container for the entire layout */
+.main-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Container for the dropdown menus and their info boxes */
+.dropdown-column {
+    flex: 1;
+    margin-right: 20px;
+}
+
+/* Container for the prediction buttons and boxes */
+.prediction-column {
+    flex: 1;
+}
+
+.dropdown-container {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+label {
+    margin-right: 10px;
+}
+
+select {
+    display: block;
+    width: 200px;
+    margin-right: 10px; /* Add margin to separate from the info box */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.info-box {
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    height: 100px;  /* Set the height of the info boxes */
+    width: 200px;   /* Set the width of the info boxes */
+    overflow: auto; /* Add overflow auto in case content exceeds the box */
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap to the next line if needed */
+    gap: 10px; /* Space between buttons */
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.prediction-box, .projection-box {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 5px;
+    min-height: 50px;
+    width: 100%; /* Full width of the container */
+}
