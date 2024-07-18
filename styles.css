@@ -1,85 +1,174 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #32a852;
     padding: 20px;
+    position: relative; /* Needed for positioning the pseudo-element */
+    z-index: 0; /* Ensures the background pseudo-element is behind all content */
 }
 
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('nfl-logo.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.7; /* Adjust the opacity to make the image transparent */
+    z-index: -1; /* Ensures the background pseudo-element is behind all content */
+}
+
+.title-font {
+    color: #333;
+    text-align: center;
+    font-size: 2em; /* Adjust the font size */
+    font-style: italic; /* Change to italic if needed */
+    font-weight: bold; /* Make it bold if needed */
+    font-family: 'Times New Roman', serif; /* Custom font for title */
+}
+
+.label-font {
+    font-size: 1em; /* Adjust the font size of the labels */
+    color: #333; /* Change the color of the labels */
+    font-family: 'Verdana', sans-serif; /* Custom font for labels */
+}
+
+.dropdown-font {
+    display: block;
+    width: 200px;
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff; /* Change the background color */
+    color: #333; /* Change the text color */
+    font-size: 1em; /* Adjust the font size */
+    font-family: 'Courier New', monospace; /* Custom font for dropdowns */
+}
+
+/* Title customization */
 h1 {
     color: #333;
     text-align: center;
+    font-size: 3em; /* Adjust the font size */
+    font-style: italic; /* Change to italic if needed */
+    font-weight: bold; /* Make it bold if needed */
 }
 
-/* Container for the entire layout */
+/* Main container to hold the columns */
 .main-container {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
 }
 
-/* Container for the dropdown menus and their info boxes */
+/* Column for dropdown menus */
 .dropdown-column {
     flex: 1;
-    margin-right: 20px;
-}
-
-/* Container for the prediction buttons and boxes */
-.prediction-column {
-    flex: 1;
-}
-
-.dropdown-container {
-    margin: 10px 0;
     display: flex;
+    flex-direction: column;
+    font-size: 1.9em; /* Adjust the font size of the labels */
+    margin-right: 20px; /* Add space between dropdowns and stats boxes */
+    margin-left: 50px; /* Add left margin to move dropdowns towards the center */
+}
+
+/* Dropdown container customization */
+.dropdown-container {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
+    color: #333; /* Change the color of the labels */
+    font-family: Arial, sans-serif; /* Change the font family if needed */
+    margin-bottom: 83px; /* Space between dropdowns */
 }
 
-label {
-    margin-right: 10px;
-}
-
+/* Dropdown menu customization */
 select {
     display: block;
     width: 200px;
-    margin-right: 10px; /* Add margin to separate from the info box */
+    margin-top: 5px;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    background-color: #fff; /* Change the background color */
+    color: #333; /* Change the text color */
+    font-size: 1em; /* Adjust the font size */
+    font-family: Arial, sans-serif; /* Change the font family if needed */
 }
 
+/* Column for player stats boxes */
+.stats-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Info box customization */
 .info-box {
     padding: 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
+    border: 2px solid #007BFF; /* Add an outline and change the color */
+    background-color: #e0f7ff; /* Change the interior color */
     border-radius: 5px;
-    height: 100px;  /* Set the height of the info boxes */
-    width: 200px;   /* Set the width of the info boxes */
-    overflow: auto; /* Add overflow auto in case content exceeds the box */
+    min-height: 100px;
+    width: 400px;
+    color: #333; /* Change the text color */
+    font-size: 1em; /* Adjust the font size */
+    font-family: 'Georgia', serif; /* Custom font for info boxes */
+    margin-bottom: 10px; /* Space between info boxes */
 }
 
-.button-container {
+/* Column for prediction buttons and boxes */
+.prediction-column {
+    flex: 1;
     display: flex;
-    flex-wrap: wrap; /* Allow buttons to wrap to the next line if needed */
-    gap: 10px; /* Space between buttons */
+    flex-direction: column;
+    align-items: center;
 }
 
-button {
+/* Button container customization */
+.button-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.button-font {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     background-color: #007BFF;
     color: #fff;
     cursor: pointer;
+    font-size: 1em; /* Adjust the font size */
+    font-family: 'Tahoma', sans-serif; /* Custom font for buttons */
 }
 
-button:hover {
+.button-font:hover {
     background-color: #0056b3;
 }
 
-.prediction-box, .projection-box {
+.button-font:last-child {
+    background-color: #FF5733;
+}
+
+.button-font:last-child:hover {
+    background-color: #C70039;
+}
+
+/* Prediction box customization */
+.prediction-box {
     margin-top: 20px;
     padding: 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
+    border: 2px solid #007BFF; /* Add an outline and change the color */
+    background-color: #e0f7ff; /* Change the interior color */
     border-radius: 5px;
-    min-height: 50px;
-    width: 100%; /* Full width of the container */
+    min-height: 100px;
+    width: 300px;
+    color: #333; /* Change the text color */
+    font-size: 1em; /* Adjust the font size */
+    font-family: 'Lucida Console', monospace; /* Custom font for prediction boxes */
 }

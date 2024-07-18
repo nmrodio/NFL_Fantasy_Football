@@ -39,8 +39,7 @@ function populateDropdowns() {
 //have the individual stats of the chose player populate immediately once they are chosen
 // and remain until new player is chosen from the same menu
 
-//these stats are probably just going to be from a spread sheet, as they will not include week-to-week updates
-//these will be summary stats for the past few years, plus maybe a detailed look at the past year
+
 function updatePlayerInfo(position) {
     let selectedPlayer = document.getElementById(`dropdown${position}`).value;
     selectedPlayers[position] = selectedPlayer;
@@ -53,16 +52,60 @@ function updatePlayerInfo(position) {
         }
     }
 
-    // Fetch and display individual stats
-    fetch(`/get_player_stats?player=${selectedPlayer}`)
-        .then(response => response.json())
-        .then(data => {
-            let playerStatsDiv = document.getElementById('playerStats');
-            playerStatsDiv.innerHTML = `<p>${data}</p>`;
-        })
-        .catch(error => console.error('Error fetching player stats:', error));
+}
+//these stats are probably just going to be from a spread sheet, as they will not include week-to-week updates
+//these will be summary stats for the past few years, plus maybe a detailed look at the past year
+
+function updatePlayerInfo(position) {
+    var select = document.getElementById(position);
+    var playerName = select.value;
+    
+    if (playerName !== "") {
+        fetch(`/player-info?position=${position}&name=${playerName}`)
+            .then(response => response.json())
+            .then(data => {
+                var infoBox = document.getElementById(`stats${position}`);
+                if (data.error) {
+                    infoBox.innerHTML = data.error;
+                } else {
+                    infoBox.innerHTML = data.stats;
+                }
+                checkSelectedPlayers();
+            })
+            .catch(error => {
+                console.error('Error fetching player data:', error);
+            });
+    }
 }
 
+function checkSelectedPlayers() {
+    var selects = document.querySelectorAll('select');
+    var selectedPlayers = 0;
+
+    selects.forEach(select => {
+        if (select.value !== "") {
+            selectedPlayers++;
+        }
+    });
+
+    var individualButton = document.getElementById('individualPredictionsButton');
+    var teamButton = document.getElementById('teamPredictionsButton');
+
+    if (selectedPlayers === 1) {
+        individualButton.disabled = false;
+        teamButton.disabled = true;
+    } else if (selectedPlayers > 1) {
+        individualButton.disabled = true;
+        teamButton.disabled = false;
+    } else {
+        individualButton.disabled = true;
+        teamButton.disabled = true;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    checkSelectedPlayers();
+});
 
 //start the prediction window and button part of the webpage
 
@@ -71,7 +114,6 @@ function updatePlayerInfo(position) {
 //instead of the individual player designation
 //to prevent confusion, user should not be able to click bot individual and team buttons at the same time
 
-//will need to add a button to clear all drop down menus
 function fetchPredictions(type) {
     fetch('/get_predictions', {
         method: 'POST',
@@ -88,5 +130,20 @@ function fetchPredictions(type) {
         .catch(error => console.error('Error fetching predictions:', error));
 }
 
+//will need to add a button to clear all drop down menus
+//clearing selection button function
+function clearSelections() {
+    var selects = document.querySelectorAll('select');
+
+    selects.forEach(select => {
+        select.value = "";
+        var infoBox = document.getElementById(`stats${select.name}`);
+        if (infoBox) {
+            infoBox.innerHTML = "Player stats will be shown here.";
+        }
+    });
+
+    checkSelectedPlayers();
+}
 
 

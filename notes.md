@@ -66,3 +66,23 @@ take differential of one players performance and the predictionwe arer making is
 7/16/24 UPDATE
 
 basic layout of website is done, now it is time to make it work and look pretty.
+button to clear all drop down menu selections has been added
+
+next steps, next to dos:
+    - wait for flask app to be able to fully test site
+    - work on aesthetics, the css styles part to make the site pretty
+    - make a function so that if more than one player is chosen, the user cannot click the 'individual player' prediction button
+
+-----------------
+
+7/17/24 UPDATE
+
+paying around with the background and fonts
+    - the background currently has a transparent logo for the nfl
+    - i want to change the size of it if possible but it is kind of unobtrusive right now
+    - do we want to go fun a kitschy or dark and bro-y?? i like kitschy
+
+have adjusted everything to where i want it to be aligned for now and have set up the code so that further adjustments can easily be made to make the boxes and menus look better
+    - boxes and menus are not where i want them to be aesthetically but they are where i want them to be positionally
+    - have set it up so that the labels and titles are all separately editable when it comes to font and size
+    - still want to work on the style of the drop down menus maybe make them larger
