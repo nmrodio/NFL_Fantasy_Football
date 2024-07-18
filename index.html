@@ -7,22 +7,27 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- repeat title code so that the font can be customized-->
     <h1 class="title-font">NFL Fantasy League Player Predictions</h1>
 
     <div class="main-container">
+
         <!-- Column for dropdown menus -->
+
+        <!-- Quarterback menu -->
         <div class="dropdown-column">
             <div class="dropdown-container">
-                <label for="Quarterback">Choose a Quarterback:</label>
+                <label for="Quarterback" class="label-font">Choose a Quarterback:</label>
                 <select name="Quarterback" id="Quarterback" class="dropdown-font" onchange="updatePlayerInfo('Quarterback')"> 
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
                     {% endfor %}
                 </select>
             </div>
-            
+
+            <!-- first wide reciever menu -->
             <div class="dropdown-container">
-                <label for="WideReceiver1">Choose a Wide Receiver:</label>
+                <label for="WideReciever1" class="label-font">Choose a Wide Reciever:</label>
                 <select name="WideReceiver1" id="WideReceiver1" class="dropdown-font" onchange="updatePlayerInfo('WideReceiver1')">
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
@@ -30,8 +35,9 @@
                 </select>
             </div>
             
+            <!-- second wide reciever menu -->
             <div class="dropdown-container">
-                <label for="WideReceiver2">Choose a second Wide Receiver:</label>
+                <label for="WideReciever2" class="label-font">Choose a second Wide Reciever:</label>
                 <select name="WideReceiver2" id="WideReceiver2" class="dropdown-font" onchange="updatePlayerInfo('WideReceiver2')">
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
@@ -39,8 +45,9 @@
                 </select>
             </div>
             
+            <!-- first running back menu -->
             <div class="dropdown-container">
-                <label for="RunningBack1">Choose a Running Back:</label>
+                <label for="RunningBack1" class="label-font">Choose a Running Back:</label>
                 <select name="RunningBack1" id="RunningBack1" class="dropdown-font" onchange="updatePlayerInfo('RunningBack1')">
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
@@ -48,8 +55,9 @@
                 </select>
             </div>
             
+            <!-- second running back menu -->
             <div class="dropdown-container">
-                <label for="RunningBack2">Choose a second Running Back:</label>
+                <label for="RunningBack2" class="label-font">Choose a second Running Back:</label>
                 <select name="RunningBack2" id="RunningBack2" class="dropdown-font" onchange="updatePlayerInfo('RunningBack2')">
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
@@ -57,8 +65,9 @@
                 </select>
             </div>
             
+            <!-- tight end menu -->
             <div class="dropdown-container">
-                <label for="TightEnd">Choose a Tight End:</label>
+                <label for="TightEnd" class="label-font">Choose a Tight End:</label>
                 <select name="TightEnd" id="TightEnd" class="dropdown-font" onchange="updatePlayerInfo('TightEnd')">
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
@@ -66,8 +75,9 @@
                 </select>
             </div>
             
+            <!-- flex menu -->
             <div class="dropdown-container">
-                <label for="Flex">Choose a Flex (WR/RB/TE):</label>
+                <label for="Flex" class="label-font">Choose a Flex (WR/RB/TE):</label>
                 <select name="Flex" id="Flex" class="dropdown-font" onchange="updatePlayerInfo('Flex')">
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
@@ -88,12 +98,16 @@
         </div>
 
         <!-- Column for prediction buttons and boxes -->
+
         <div class="prediction-column">
             <div class="button-container">
+                <!-- prediction buttons -->
                 <button class="button-font" id="individualPredictionsButton" onclick="fetchPredictions('individual')">Individual Predictions</button>
                 <button class="button-font" id="teamPredictionsButton" onclick="fetchPredictions('team')">Team Predictions</button>
+                <!-- clear menu for a redo -->
                 <button class="button-font" onclick="clearSelections()">Clear Selections</button>
             </div>
+            <!-- these boxes will populate once the corresponding buttons are clicked -->
             <div class="prediction-box" id="individualPredictionBox">Individual player predictions will be shown here.</div>
             <div class="prediction-box" id="teamPredictionBox">Team predictions will be shown here.</div>
         </div>

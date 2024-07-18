@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #32a852;
+    background-color: #464746;
     padding: 20px;
     position: relative; /* Needed for positioning the pseudo-element */
     z-index: 0; /* Ensures the background pseudo-element is behind all content */
@@ -22,18 +22,20 @@ body::before {
 }
 
 .title-font {
-    color: #333;
+    color: #b80404;
     text-align: center;
-    font-size: 2em; /* Adjust the font size */
-    font-style: italic; /* Change to italic if needed */
+    font-size: 4em; /* Adjust the font size */
     font-weight: bold; /* Make it bold if needed */
-    font-family: 'Times New Roman', serif; /* Custom font for title */
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; /* Custom font for title */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Add a shadow effect */
+    letter-spacing: 2px; /* Increase space between letters */
 }
 
 .label-font {
-    font-size: 1em; /* Adjust the font size of the labels */
-    color: #333; /* Change the color of the labels */
-    font-family: 'Verdana', sans-serif; /* Custom font for labels */
+    font-size: 1.75em; /* Adjust the font size of the labels */
+    color: #c7c7c7; /* Change the color of the labels */
+    font-family: FreeMono, monospace; /* Custom font for labels */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Add a shadow effect */
 }
 
 .dropdown-font {
@@ -43,15 +45,15 @@ body::before {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    background-color: #fff; /* Change the background color */
+    background-color: #e9e9e9; /* Change the background color */
     color: #333; /* Change the text color */
     font-size: 1em; /* Adjust the font size */
-    font-family: 'Courier New', monospace; /* Custom font for dropdowns */
+    font-family: Helvetica, sans-serif; /* Custom font for dropdowns */
 }
 
 /* Title customization */
 h1 {
-    color: #333;
+    color: #b80404;
     text-align: center;
     font-size: 3em; /* Adjust the font size */
     font-style: italic; /* Change to italic if needed */
@@ -70,7 +72,6 @@ h1 {
     flex: 1;
     display: flex;
     flex-direction: column;
-    font-size: 1.9em; /* Adjust the font size of the labels */
     margin-right: 20px; /* Add space between dropdowns and stats boxes */
     margin-left: 50px; /* Add left margin to move dropdowns towards the center */
 }
@@ -80,8 +81,6 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #333; /* Change the color of the labels */
-    font-family: Arial, sans-serif; /* Change the font family if needed */
     margin-bottom: 83px; /* Space between dropdowns */
 }
 
@@ -94,9 +93,6 @@ select {
     border-radius: 5px;
     border: 1px solid #ccc;
     background-color: #fff; /* Change the background color */
-    color: #333; /* Change the text color */
-    font-size: 1em; /* Adjust the font size */
-    font-family: Arial, sans-serif; /* Change the font family if needed */
 }
 
 /* Column for player stats boxes */
@@ -109,14 +105,14 @@ select {
 /* Info box customization */
 .info-box {
     padding: 10px;
-    border: 2px solid #007BFF; /* Add an outline and change the color */
-    background-color: #e0f7ff; /* Change the interior color */
+    border: 2px solid #080808; /* Add an outline and change the color */
+    background-color: #d7d9d7; /* Change the interior color */
     border-radius: 5px;
     min-height: 100px;
     width: 400px;
     color: #333; /* Change the text color */
-    font-size: 1em; /* Adjust the font size */
-    font-family: 'Georgia', serif; /* Custom font for info boxes */
+    font-size: 1.2em; /* Adjust the font size */
+    font-family: Helvetica, sans-serif; /* Custom font for info boxes */
     margin-bottom: 10px; /* Space between info boxes */
 }
 
@@ -136,19 +132,23 @@ select {
     gap: 10px;
 }
 
+/* Button font and appearance customization */
 .button-font {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #007BFF;
+    background-color: #088f03;
     color: #fff;
     cursor: pointer;
     font-size: 1em; /* Adjust the font size */
     font-family: 'Tahoma', sans-serif; /* Custom font for buttons */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Add shadow effect */
+    transition: box-shadow 0.3s ease; /* Smooth transition for shadow on hover */
 }
 
 .button-font:hover {
-    background-color: #0056b3;
+    background-color: #035400;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7); /* Darker shadow on hover */
 }
 
 .button-font:last-child {
@@ -157,18 +157,20 @@ select {
 
 .button-font:last-child:hover {
     background-color: #C70039;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7); /* Darker shadow on hover */
 }
+
 
 /* Prediction box customization */
 .prediction-box {
     margin-top: 20px;
     padding: 10px;
-    border: 2px solid #007BFF; /* Add an outline and change the color */
-    background-color: #e0f7ff; /* Change the interior color */
+    border: 2px solid #080808; /* Add an outline and change the color */
+    background-color: #d7d9d7; /* Change the interior color */
     border-radius: 5px;
-    min-height: 100px;
-    width: 300px;
+    min-height: 300px;
+    width: 600px;
     color: #333; /* Change the text color */
-    font-size: 1em; /* Adjust the font size */
-    font-family: 'Lucida Console', monospace; /* Custom font for prediction boxes */
+    font-size: 1.6em; /* Adjust the font size */
+    font-family: Helvetica, sans-serif; /* Custom font for prediction boxes */
 }
