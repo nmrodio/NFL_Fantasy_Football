@@ -24,6 +24,26 @@
                     {% endfor %}
                 </select>
             </div>
+             
+            <!-- first running back menu -->
+            <div class="dropdown-container">
+                <label for="RunningBack1" class="label-font">Choose a Running Back:</label>
+                <select name="RunningBack1" id="RunningBack1" class="dropdown-font" onchange="updatePlayerInfo('RunningBack1')">
+                    {% for name in names %}
+                        <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <!-- second running back menu -->
+            <div class="dropdown-container">
+                <label for="RunningBack2" class="label-font">Choose a second Running Back:</label>
+                <select name="RunningBack2" id="RunningBack2" class="dropdown-font" onchange="updatePlayerInfo('RunningBack2')">
+                    {% for name in names %}
+                        <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
             <!-- first wide reciever menu -->
             <div class="dropdown-container">
@@ -39,26 +59,6 @@
             <div class="dropdown-container">
                 <label for="WideReciever2" class="label-font">Choose a second Wide Reciever:</label>
                 <select name="WideReceiver2" id="WideReceiver2" class="dropdown-font" onchange="updatePlayerInfo('WideReceiver2')">
-                    {% for name in names %}
-                        <option value="{{ name }}">{{ name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            
-            <!-- first running back menu -->
-            <div class="dropdown-container">
-                <label for="RunningBack1" class="label-font">Choose a Running Back:</label>
-                <select name="RunningBack1" id="RunningBack1" class="dropdown-font" onchange="updatePlayerInfo('RunningBack1')">
-                    {% for name in names %}
-                        <option value="{{ name }}">{{ name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            
-            <!-- second running back menu -->
-            <div class="dropdown-container">
-                <label for="RunningBack2" class="label-font">Choose a second Running Back:</label>
-                <select name="RunningBack2" id="RunningBack2" class="dropdown-font" onchange="updatePlayerInfo('RunningBack2')">
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
                     {% endfor %}
@@ -102,8 +102,8 @@
         <div class="prediction-column">
             <div class="button-container">
                 <!-- prediction buttons -->
-                <button class="button-font" id="individualPredictionsButton" onclick="fetchPredictions('individual')">Individual Predictions</button>
-                <button class="button-font" id="teamPredictionsButton" onclick="fetchPredictions('team')">Team Predictions</button>
+                <button class="button-font" id="individualPredictionButton" onclick="generateIndividualPrediction()">Individual Player Predictions</button>
+                <button class="button-font" id="teamPredictionButton" onclick="generateTeamPrediction()">Team Predictions</button>
                 <!-- clear menu for a redo -->
                 <button class="button-font" onclick="clearSelections()">Clear Selections</button>
             </div>
