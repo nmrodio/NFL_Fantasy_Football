@@ -1,11 +1,11 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #464746;
+    /* basic background formatting */
+    background-color: #1d2449;
     padding: 20px;
-    position: relative; /* Needed for positioning the pseudo-element */
-    z-index: 0; /* Ensures the background pseudo-element is behind all content */
+    position: relative; /* positioning the pseudo-element */
+    z-index: 0; /* Ensure pseudo-element is behind all content */
 }
-
+/* formatting for the background nfl logo*/
 body::before {
     content: '';
     position: absolute;
@@ -17,27 +17,31 @@ body::before {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    opacity: 0.7; /* Adjust the opacity to make the image transparent */
-    z-index: -1; /* Ensures the background pseudo-element is behind all content */
+    opacity: 0.7; /* make the image transparent */
+    z-index: -1; /* Ensures pseudo-element is behind all content */
 }
 
+/* Title font customization */
 .title-font {
-    color: #b80404;
+    color: #66b90d;
     text-align: center;
     font-size: 4em; /* Adjust the font size */
-    font-weight: bold; /* Make it bold if needed */
+    font-weight: bold; /* Make it bold */
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; /* Custom font for title */
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Add a shadow effect */
     letter-spacing: 2px; /* Increase space between letters */
 }
 
+
+/* label text formatting */
 .label-font {
     font-size: 1.75em; /* Adjust the font size of the labels */
-    color: #c7c7c7; /* Change the color of the labels */
+    color: #d5f6a5; /* Change the color of the labels */
     font-family: FreeMono, monospace; /* Custom font for labels */
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Add a shadow effect */
 }
 
+/* menu text formatting */
 .dropdown-font {
     display: block;
     width: 200px;
@@ -49,15 +53,6 @@ body::before {
     color: #333; /* Change the text color */
     font-size: 1em; /* Adjust the font size */
     font-family: Helvetica, sans-serif; /* Custom font for dropdowns */
-}
-
-/* Title customization */
-h1 {
-    color: #b80404;
-    text-align: center;
-    font-size: 3em; /* Adjust the font size */
-    font-style: italic; /* Change to italic if needed */
-    font-weight: bold; /* Make it bold if needed */
 }
 
 /* Main container to hold the columns */
@@ -105,8 +100,8 @@ select {
 /* Info box customization */
 .info-box {
     padding: 10px;
-    border: 2px solid #080808; /* Add an outline and change the color */
-    background-color: #d7d9d7; /* Change the interior color */
+    border: 2px solid #6bb838; /* Add an outline and change the color */
+    background-color: #d5f6a5; /* Change the interior color */
     border-radius: 5px;
     min-height: 100px;
     width: 400px;
@@ -132,19 +127,34 @@ select {
     gap: 10px;
 }
 
-/* Button font and appearance customization */
 .button-font {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #088f03;
     color: #fff;
     cursor: pointer;
     font-size: 1em; /* Adjust the font size */
     font-family: 'Tahoma', sans-serif; /* Custom font for buttons */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Add shadow effect */
-    transition: box-shadow 0.3s ease; /* Smooth transition for shadow on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
 }
+
+#individualPredictionButton {
+    background-color: #72c342; /* Blue background for individual predictions */
+}
+
+#individualPredictionButton:hover {
+    background-color: #5e9425; /* Darker blue on hover */
+}
+
+#teamPredictionButton {
+    background-color: #28a745; /* Green background for team predictions */
+}
+
+#teamPredictionButton:hover {
+    background-color: #1e7e34; /* Darker green on hover */
+}
+
+/* Apply different style for clear button if needed */
 
 .button-font:hover {
     background-color: #035400;
@@ -165,8 +175,8 @@ select {
 .prediction-box {
     margin-top: 20px;
     padding: 10px;
-    border: 2px solid #080808; /* Add an outline and change the color */
-    background-color: #d7d9d7; /* Change the interior color */
+    border: 2px solid #6bb838; /* Add an outline and change the color */
+    background-color: #d5f6a5; /* Change the interior color */
     border-radius: 5px;
     min-height: 300px;
     width: 600px;
