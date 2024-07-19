@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NFL Fantasy League Player Predictions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="../static/scaffolding.js"></script>
+</head>
+<body>
+     <!-- repeat title code so that the font can be customized-->
+     <h1 class="title-font">NFL Fantasy League Player Predictions</h1>
+
+     <div class="main-container">
+        <div class="dropdown-column">
+             <!-- Dropdowns for each position -->
+            <div class="dropdown-container">
+                <label for="QB" class="label-font">Select a Quarterback:</label>
+                <select name="QB" id="dropdownQB" class="dropdown-font" onchange="updatePlayerInfo('QB')">
+                    {% for name in names %}
+                        <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                    </select>
+            </div>
+        
+            <div class="dropdown-container">
+                <label for="RB1" class="label-font">Select a Running Back:</label>
+                <select name="RB1" id="dropdownRB1" class="dropdown-font" onchange="updatePlayerInfo('RB1')">
+                    {% for name in names %}
+                        <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="dropdown-container">
+                <label for="RB2" class="label-font">Select a second Running Back:</label>
+                <select name="RB2" id="dropdownRB2" class="dropdown-font" onchange="updatePlayerInfo('RB2')">
+                    {% for name in names %}
+                        <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="dropdown-container">
+                <label for="WR1" class="label-font">Select a Wide Receiver:</label>
+                <select name="WR1" id="dropdownWR1" class="dropdown-font" onchange="updatePlayerInfo('WR1')">
+                    {% for name in names %}
+                        <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="dropdown-container">
+                <label for="WR2" class="label-font">Select a second Wide Receiver:</label>
+                <select name="WR2" id="dropdownWR2" class="dropdown-font" onchange="updatePlayerInfo('WR2')">
+                    {% for name in names %}
+                        <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="dropdown-container">
+                <label for="TE" class="label-font">Select a Tight End:</label>
+                <select name="TE" id="dropdownTE" class="dropdown-font" onchange="updatePlayerInfo('TE')">
+                    {% for name in names %}
+                        <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="dropdown-container">
+                <label for="Flex" class="label-font">Select a Flex Player:</label>
+                <select name="Flex" id="dropdownFlex" class="dropdown-font" onchange="updatePlayerInfo('Flex')">
+                    {% for name in names %}
+                        <option value="{{ name }}">{{ name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Column for player stats boxes -->
+    <div class="stats-column">
+        <div class="info-box" id="statsQB">Player stats will be shown here.</div>
+        <div class="info-box" id="statsWR1">Player stats will be shown here.</div>
+        <div class="info-box" id="statsWR2">Player stats will be shown here.</div>
+        <div class="info-box" id="statsRB1">Player stats will be shown here.</div>
+        <div class="info-box" id="statsRB2">Player stats will be shown here.</div>
+        <div class="info-box" id="statsTE">Player stats will be shown here.</div>
+        <div class="info-box" id="statsFlex">Player stats will be shown here.</div>
+    </div>
+
+    <!-- Column for prediction buttons and boxes -->
+    <div class="prediction-column">
+        <div class="button-container">
+            <!-- prediction buttons -->
+            <button class="button-font" id="individualPredictionsButton" onclick="fetchPredictions('individual')" disabled>Get Individual Predictions</button>
+            <button class="button-font" id="teamPredictionsButton" onclick="fetchPredictions('team')" disabled>Get Team Predictions</button>
+            <!-- clear menu for a redo -->
+            <button class="button-font" onclick="clearSelections()">Clear Selections</button>
+        </div>
+        <!-- these boxes will populate once the corresponding buttons are clicked -->
+        <div class="prediction-box" id="individualPredictionBox">Individual player predictions will be shown here.</div>
+        <div class="prediction-box" id="teamPredictionBox">Team predictions will be shown here.</div>
+    </div>
+
+   
+</body>
+</html>

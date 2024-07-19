@@ -29,9 +29,10 @@ engine = create_engine(f"postgresql+psycopg2://{db_config['user']}:{db_config['p
 @app.route('/')
 def survey_default():
     try:
-        # write all the code here for the chart
-        return render_template('index.html')
-
+        with engine.connect() as connection:
+            result = connection.execute(text("SELECT DISTINCT name FROM dropdown_data"))
+            names = [row['name'] for row in result.fetchall()]
+        return render_template('index.html', names=names)
     except Exception as e:
         print(e)
         return "An error occurred while retrieving fantasy data."
@@ -41,20 +42,19 @@ def get_data():
     try:
     
         with engine.connect() as connection:
-            result1 = connection.execute(text("SELECT * FROM predicting_data"))
-            result2 = connection.execute(text("SELECT * FROM training_data"))
+            fantasy_prediction = connection.execute(text("SELECT * FROM fantasy_football_2024_predictions"))
+            fantasy_career_scores = connection.execute(text("SELECT  * FROM fantasy_football_players_career_scores"))
            
-            predicting_data = result1.fetchall()
-            training_data = result2.fetchall()
+            predictions = fantasy_prediction.fetchall()
+            career_scores = fantasy_career_scores.fetchall()
             
-
         all_fantasy_data = {
-        "predicting_data": [dict(zip(result1.keys(), row)) for row in predicting_data],
-        "training_data": [dict(zip(result2.keys(), row)) for row in training_data]
+        "predictions": [dict(zip(fantasy_prediction.keys(), row)) for row in predictions],
+        "career_scores": [dict(zip(fantasy_career_scores.keys(), row)) for row in career_scores]
         
     }
 
-        # Render the HTML template with survey data
+        # Render the HTML template with fantasy data
         return jsonify(all_fantasy_data)
 
     except Exception as e:
