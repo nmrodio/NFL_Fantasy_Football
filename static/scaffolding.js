@@ -17,6 +17,7 @@ let selectedPlayers = {
 //populate the drop down menus with the player info according to position from the app
 //this will probably be taken from a list in a spreadsheet or smt and will not be from the model data
 //
+
 function populateDropdowns() {
     fetch('/data')
         .then(response => response.json())
@@ -70,6 +71,7 @@ function populateDropdowns() {
                         dropdown.addEventListener('change', event => {
                             let player = JSON.parse(event.target.value); // Parse player object from value
                             let positionId = dropdown.id.replace('dropdown', '');
+                            selectedPlayers[positionId] = player; // Store selected player data
                             updatePlayerInfo(player, positionId);
                         });
                     } else {
@@ -91,6 +93,7 @@ function populateDropdowns() {
 
                 flexDropdown.addEventListener('change', event => {
                     let player = JSON.parse(event.target.value); // Parse player object from value
+                    selectedPlayers.Flex = player; // Store selected player data
                     updatePlayerInfo(player, 'Flex');
                 });
             } else {
@@ -106,23 +109,18 @@ function populateDropdowns() {
 // and remain until new player is chosen from the same menu
 
 function updatePlayerInfo(player, position) {
-    const scorePredictionElement = document.getElementById(`scorePrediction${position}`);
-    const weeklyScorePredictionElement = document.getElementById(`weeklyScorePrediction${position}`);
+    const statsContent = document.getElementById(`statsContent${position}`);
+    const scorePredictionContent = document.getElementById(`scorePredictionContent${position}`);
+    const weeklyScorePredictionContent = document.getElementById(`weeklyScorePredictionContent${position}`);
 
-    if (!scorePredictionElement || !weeklyScorePredictionElement) {
+    if (!statsContent || !scorePredictionContent || !weeklyScorePredictionContent) {
         console.error('Prediction elements not found in the DOM');
         return;
     }
 
-    scorePredictionElement.textContent = player.fantasy_2024_score_prediction || 'N/A';
-    weeklyScorePredictionElement.textContent = player.fantasy_2024_per_week_score_prediction || 'N/A';
-
-    // Update stats info box if needed
-    const statsElement = document.getElementById(`stats${position}`);
-    if (statsElement) {
-        statsElement.textContent = `Player: ${player.name}, Team: ${player.team}, Position: ${player.position}`;
-    }
-
+    statsContent.textContent = `Player: ${player.name}, Team: ${player.team}, Position: ${player.position}`;
+    scorePredictionContent.textContent = `Score Prediction: ${player.fantasy_2024_score_prediction || 'N/A'}`;
+    weeklyScorePredictionContent.textContent = `Weekly Score Prediction: ${player.fantasy_2024_per_week_score_prediction || 'N/A'}`;
 }
 
 //start the prediction window and button part of the webpage
@@ -163,20 +161,26 @@ function clearSelections() {
         select.value = "";
         var positionId = select.id.replace('dropdown', '');
         selectedPlayers[positionId] = null; // Clear selected player data
-        var infoBox = document.getElementById(`stats${positionId}`);
-        var scorePredictionElement = document.getElementById(`scorePrediction${positionId}`);
-        var weeklyScorePredictionElement = document.getElementById(`weeklyScorePrediction${positionId}`);
-        if (infoBox) {
-            infoBox.innerHTML = "Player stats will be shown here.";
+    });
+
+    ['QB', 'RB1', 'RB2', 'WR1', 'WR2', 'TE', 'Flex'].forEach(position => {
+        const statsContent = document.getElementById(`statsContent${position}`);
+        const scorePredictionContent = document.getElementById(`scorePredictionContent${position}`);
+        const weeklyScorePredictionContent = document.getElementById(`weeklyScorePredictionContent${position}`);
+
+        if (statsContent) {
+            statsContent.innerHTML = "Player stats will be shown here.";
         }
-        if (scorePredictionElement) {
-            scorePredictionElement.innerHTML = "N/A";
+        if (scorePredictionContent) {
+            scorePredictionContent.innerHTML = "Score Prediction: N/A";
         }
-        if (weeklyScorePredictionElement) {
-            weeklyScorePredictionElement.innerHTML = "N/A";
+        if (weeklyScorePredictionContent) {
+            weeklyScorePredictionContent.innerHTML = "Weekly Score Prediction: N/A";
         }
     });
 
     const teamPredictionBox = document.getElementById('teamPredictionBox');
-    teamPredictionBox.innerHTML = "Team predictions will be shown here.";
+    if (teamPredictionBox) {
+        teamPredictionBox.innerHTML = "Team predictions will be shown here.";
+    }
 }

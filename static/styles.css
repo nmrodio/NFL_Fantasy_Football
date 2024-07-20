@@ -13,7 +13,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('../templates/nfl-logo.png');
+    background-image: url('nfl-logo.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -171,8 +171,8 @@ select {
     border: 2px solid #6bb838; /* Add an outline and change the color */
     background-color: #d5f6a5; /* Change the interior color */
     border-radius: 5px;
-    min-height: 300px;
-    width: 600px;
+    min-height: 100px;
+    width: 400px;
     color: #333; /* Change the text color */
     font-size: 1.6em; /* Adjust the font size */
     font-family: Helvetica, sans-serif; /* Custom font for prediction boxes */
