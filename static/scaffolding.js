@@ -18,94 +18,112 @@ let selectedPlayers = {
 //this will probably be taken from a list in a spreadsheet or smt and will not be from the model data
 //
 function populateDropdowns() {
-    const positions = ['QB', 'RB1', 'RB2', 'WR1', 'WR2', 'TE', 'Flex'];
-    positions.forEach(position => {
-        fetch('/get_dropdown_data')
-            .then(response => response.json())
-            .then(data => {
-                let dropdown = document.getElementById(`dropdown${position}`);
-                data.forEach(item => {
-                    let option = document.createElement('option');
-                    option.value = item.value;
-                    option.textContent = item.name;
-                    dropdown.appendChild(option);
+    fetch('/data')
+        .then(response => response.json())
+        .then(data => {
+            if (!data.predictions || !data.career_scores) {
+                throw new Error('Fetched data is not in the expected format');
+            }
+
+            const predictions = data.predictions;
+            const careerScores = data.career_scores;
+
+            // Combine predictions and career scores based on player name and position
+            const combinedData = predictions.map(pred => {
+                const career = careerScores.find(cs => cs.name === pred.name && cs.position === pred.position);
+                return { ...pred, ...career };
+            });
+
+            const playersByPosition = {
+                QB: [],
+                RB: [],
+                WR: [],
+                TE: [],
+                Flex: []
+            };
+
+            combinedData.forEach(item => {
+                if (playersByPosition[item.position]) {
+                    playersByPosition[item.position].push(item);
+                }
+            });
+
+            const positions = ['QB', 'RB', 'WR', 'TE', 'Flex'];
+            positions.forEach(position => {
+                let dropdowns = [];
+                if (position === 'RB' || position === 'WR') {
+                    dropdowns.push(document.getElementById(`dropdown${position}1`));
+                    dropdowns.push(document.getElementById(`dropdown${position}2`));
+                } else {
+                    dropdowns.push(document.getElementById(`dropdown${position}`));
+                }
+                
+                dropdowns.forEach(dropdown => {
+                    if (dropdown) {
+                        playersByPosition[position].forEach(player => {
+                            let option = document.createElement('option');
+                            option.value = JSON.stringify(player); // Stringify player object to store in value
+                            option.textContent = player.name;
+                            dropdown.appendChild(option);
+                        });
+
+                        dropdown.addEventListener('change', event => {
+                            let player = JSON.parse(event.target.value); // Parse player object from value
+                            let positionId = dropdown.id.replace('dropdown', '');
+                            updatePlayerInfo(player, positionId);
+                        });
+                    } else {
+                        console.error(`Dropdown element for ${position} not found`);
+                    }
                 });
-            })
-            .catch(error => console.error('Error fetching dropdown data:', error));
-    });
+            });
+
+            let flexDropdown = document.getElementById('dropdownFlex');
+            if (flexDropdown) {
+                ['WR', 'RB', 'TE'].forEach(position => {
+                    playersByPosition[position].forEach(player => {
+                        let option = document.createElement('option');
+                        option.value = JSON.stringify(player); // Stringify player object to store in value
+                        option.textContent = player.name;
+                        flexDropdown.appendChild(option);
+                    });
+                });
+
+                flexDropdown.addEventListener('change', event => {
+                    let player = JSON.parse(event.target.value); // Parse player object from value
+                    updatePlayerInfo(player, 'Flex');
+                });
+            } else {
+                console.error('Flex dropdown element not found');
+            }
+
+        })
+        .catch(error => console.error('Error fetching dropdown data:', error));
 }
 
 //make sure the players don't get chosen twice when there are two menus for one position
 //have the individual stats of the chose player populate immediately once they are chosen
 // and remain until new player is chosen from the same menu
 
+function updatePlayerInfo(player, position) {
+    const scorePredictionElement = document.getElementById(`scorePrediction${position}`);
+    const weeklyScorePredictionElement = document.getElementById(`weeklyScorePrediction${position}`);
 
-function updatePlayerInfo(position) {
-    let selectedPlayer = document.getElementById(`dropdown${position}`).value;
-    selectedPlayers[position] = selectedPlayer;
+    if (!scorePredictionElement || !weeklyScorePredictionElement) {
+        console.error('Prediction elements not found in the DOM');
+        return;
+    }
 
-    // Remove chosen player from other dropdowns
-    for (let pos in selectedPlayers) {
-        if (pos !== position && selectedPlayers[pos] === selectedPlayer) {
-            selectedPlayers[pos] = null;
-            document.getElementById(`dropdown${pos}`).value = '';
-        }
+    scorePredictionElement.textContent = player.fantasy_2024_score_prediction || 'N/A';
+    weeklyScorePredictionElement.textContent = player.fantasy_2024_per_week_score_prediction || 'N/A';
+
+    // Update stats info box if needed
+    const statsElement = document.getElementById(`stats${position}`);
+    if (statsElement) {
+        statsElement.textContent = `Player: ${player.name}, Team: ${player.team}, Position: ${player.position}`;
     }
 
 }
-//these stats are probably just going to be from a spread sheet, as they will not include week-to-week updates
-//these will be summary stats for the past few years, plus maybe a detailed look at the past year
-
-function updatePlayerInfo(position) {
-    var select = document.getElementById(position);
-    var playerName = select.value;
-    
-    if (playerName !== "") {
-        fetch(`/player-info?position=${position}&name=${playerName}`)
-            .then(response => response.json())
-            .then(data => {
-                var infoBox = document.getElementById(`stats${position}`);
-                if (data.error) {
-                    infoBox.innerHTML = data.error;
-                } else {
-                    infoBox.innerHTML = data.stats;
-                }
-                checkSelectedPlayers();
-            })
-            .catch(error => {
-                console.error('Error fetching player data:', error);
-            });
-    }
-}
-
-function checkSelectedPlayers() {
-    var selects = document.querySelectorAll('select');
-    var selectedPlayers = 0;
-
-    selects.forEach(select => {
-        if (select.value !== "") {
-            selectedPlayers++;
-        }
-    });
-
-    var individualButton = document.getElementById('individualPredictionsButton');
-    var teamButton = document.getElementById('teamPredictionsButton');
-
-    if (selectedPlayers === 1) {
-        individualButton.disabled = false;
-        teamButton.disabled = true;
-    } else if (selectedPlayers > 1) {
-        individualButton.disabled = true;
-        teamButton.disabled = false;
-    } else {
-        individualButton.disabled = true;
-        teamButton.disabled = true;
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    checkSelectedPlayers();
-});
 
 //start the prediction window and button part of the webpage
 
@@ -114,36 +132,51 @@ document.addEventListener('DOMContentLoaded', function() {
 //instead of the individual player designation
 //to prevent confusion, user should not be able to click bot individual and team buttons at the same time
 
-function fetchPredictions(type) {
-    fetch('/get_predictions', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ players: selectedPlayers, type: type })
-    })
-        .then(response => response.json())
-        .then(data => {
-            let predictionResultsDiv = document.getElementById('predictionResults');
-            predictionResultsDiv.innerHTML = `<p>${data}</p>`;
-        })
-        .catch(error => console.error('Error fetching predictions:', error));
+function generateTeamPrediction() {
+    let totalScorePrediction = 0;
+    let totalWeeklyScorePrediction = 0;
+
+    Object.keys(selectedPlayers).forEach(position => {
+        const player = selectedPlayers[position];
+        if (player) {
+            const scorePrediction = parseFloat(player.fantasy_2024_score_prediction) || 0;
+            const weeklyScorePrediction = parseFloat(player.fantasy_2024_per_week_score_prediction) || 0;
+            totalScorePrediction += scorePrediction;
+            totalWeeklyScorePrediction += weeklyScorePrediction;
+        }
+    });
+
+    const teamPredictionBox = document.getElementById('teamPredictionBox');
+    teamPredictionBox.innerHTML = `
+        <p>Total Score Prediction: ${totalScorePrediction}</p>
+        <p>Total Weekly Score Prediction: ${totalWeeklyScorePrediction}</p>
+    `;
 }
 
 //will need to add a button to clear all drop down menus
 //clearing selection button function
+
 function clearSelections() {
     var selects = document.querySelectorAll('select');
 
     selects.forEach(select => {
         select.value = "";
-        var infoBox = document.getElementById(`stats${select.name}`);
+        var positionId = select.id.replace('dropdown', '');
+        selectedPlayers[positionId] = null; // Clear selected player data
+        var infoBox = document.getElementById(`stats${positionId}`);
+        var scorePredictionElement = document.getElementById(`scorePrediction${positionId}`);
+        var weeklyScorePredictionElement = document.getElementById(`weeklyScorePrediction${positionId}`);
         if (infoBox) {
             infoBox.innerHTML = "Player stats will be shown here.";
         }
+        if (scorePredictionElement) {
+            scorePredictionElement.innerHTML = "N/A";
+        }
+        if (weeklyScorePredictionElement) {
+            weeklyScorePredictionElement.innerHTML = "N/A";
+        }
     });
 
-    checkSelectedPlayers();
+    const teamPredictionBox = document.getElementById('teamPredictionBox');
+    teamPredictionBox.innerHTML = "Team predictions will be shown here.";
 }
-
-
