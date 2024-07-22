@@ -138,13 +138,6 @@ select {
     transition: background-color 0.3s ease; /* Smooth transition for background color */
 }
 
-#individualPredictionButton {
-    background-color: #72c342; /* Blue background for individual predictions */
-}
-
-#individualPredictionButton:hover {
-    background-color: #5e9425; /* Darker blue on hover */
-}
 
 #teamPredictionButton {
     background-color: #28a745; /* Green background for team predictions */
@@ -178,8 +171,8 @@ select {
     border: 2px solid #6bb838; /* Add an outline and change the color */
     background-color: #d5f6a5; /* Change the interior color */
     border-radius: 5px;
-    min-height: 300px;
-    width: 600px;
+    min-height: 100px;
+    width: 400px;
     color: #333; /* Change the text color */
     font-size: 1.6em; /* Adjust the font size */
     font-family: Helvetica, sans-serif; /* Custom font for prediction boxes */

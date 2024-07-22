@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 from sqlalchemy import create_engine, text
 from flask_cors import CORS
 
@@ -6,9 +6,8 @@ app = Flask(__name__)
 CORS(app)
 
 # =====================
-# getting the data-----Create the database engine
+# Database configuration
 # =====================
-
 
 db_config = {
     'user': 'postgres',
@@ -18,20 +17,16 @@ db_config = {
     'database': 'database'
 }
 
-
 engine = create_engine(f"postgresql+psycopg2://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}")
 
-
 # =====================
-# route
+# Routes
 # =====================
 
 @app.route('/')
 def home():
     try:
-        # write all the code here for the chart
         return render_template('index.html')
-
     except Exception as e:
         print(e)
         return "An error occurred while retrieving survey data."
@@ -39,7 +34,6 @@ def home():
 @app.route('/data')
 def get_data():
     try:
-    
         with engine.connect() as connection:
             fantasy_prediction = connection.execute(text("SELECT * FROM fantasy_football_2024_predictions"))
             fantasy_career_scores = connection.execute(text("SELECT * FROM fantasy_football_players_career_scores"))
@@ -48,29 +42,44 @@ def get_data():
             career_scores = fantasy_career_scores.fetchall()
             
         all_fantasy_data = {
-        "predictions": [dict(zip(fantasy_prediction.keys(), row)) for row in predictions],
-        "career_scores": [dict(zip(fantasy_career_scores.keys(), row)) for row in career_scores]
-        
-    }
+            "predictions": [dict(zip(fantasy_prediction.keys(), row)) for row in predictions],
+            "career_scores": [dict(zip(fantasy_career_scores.keys(), row)) for row in career_scores]
+        }
 
-        # Render the HTML template with fantasy data
         return jsonify(all_fantasy_data)
 
     except Exception as e:
-        print(e)
-        return "An error occurred while retrieving survey data."
+        print(f"An error occurred while retrieving data: {str(e)}")
+        return jsonify({"error": "An error occurred while retrieving data"}), 500
+ 
 
-@app.route('/get-predictions')
-def get_predictions():
+@app.route('/predictions/<player_name>')
+def get_player_predictions(player_name):
     try:
         with engine.connect() as connection:
-            result = connection.execute(text("SELECT * FROM fantasy_football_2024_predictions"))
+            result = connection.execute(
+                text("SELECT fantasy_2024_score_prediction, fantasy_2024_per_week_score_prediction FROM fantasy_football_2024_predictions WHERE name = :name"),
+                {"name": player_name}
+            )
             predictions = [dict(zip(result.keys(), row)) for row in result.fetchall()]
-            return jsonify(predictions)
+            if predictions:
+                return jsonify(predictions[0])
+            else:
+                return jsonify({"error": "No predictions found for the player"}), 404
     except Exception as e:
         print(f"An error occurred while retrieving predictions: {str(e)}")
         return jsonify({"error": "An error occurred while retrieving predictions"}), 500
 
+@app.route('/dropdown_data')
+def get_dropdown_data():
+    try:
+        with engine.connect() as connection:
+            result = connection.execute(text("SELECT name FROM fantasy_football_2024_predictions"))
+            dropdown_data = [dict(zip(result.keys(), row)) for row in result.fetchall()]
+            return jsonify(dropdown_data)
+    except Exception as e:
+        print(f"An error occurred while retrieving dropdown data: {str(e)}")
+        return jsonify({"error": "An error occurred while retrieving dropdown data"}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)

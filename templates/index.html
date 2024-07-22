@@ -14,11 +14,11 @@
 
         <!-- Column for dropdown menus -->
 
-        <!-- Quarterback menu -->
+        <!-- QB menu -->
         <div class="dropdown-column">
             <div class="dropdown-container">
-                <label for="Quarterback" class="label-font">Choose a Quarterback:</label>
-                <select name="Quarterback" id="Quarterback" class="dropdown-font" onchange="updatePlayerInfo('Quarterback')"> 
+                <label for="QB" class="label-font">Choose a QB:</label>
+                <select name="QB" id="dropdownQB" class="dropdown-font" onchange="updatePlayerInfo('QB')"> 
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
                     {% endfor %}
@@ -27,8 +27,8 @@
              
             <!-- first running back menu -->
             <div class="dropdown-container">
-                <label for="RunningBack1" class="label-font">Choose a Running Back:</label>
-                <select name="RunningBack1" id="RunningBack1" class="dropdown-font" onchange="updatePlayerInfo('RunningBack1')">
+                <label for="RB1" class="label-font">Choose a Running Back:</label>
+                <select name="RB1" id="dropdownRB1" class="dropdown-font" onchange="updatePlayerInfo('RB1')">
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
                     {% endfor %}
@@ -37,28 +37,28 @@
             
             <!-- second running back menu -->
             <div class="dropdown-container">
-                <label for="RunningBack2" class="label-font">Choose a second Running Back:</label>
-                <select name="RunningBack2" id="RunningBack2" class="dropdown-font" onchange="updatePlayerInfo('RunningBack2')">
+                <label for="RB2" class="label-font">Choose a second Running Back:</label>
+                <select name="RB2" id="dropdownRB2" class="dropdown-font" onchange="updatePlayerInfo('RB2')">
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
                     {% endfor %}
                 </select>
             </div>
 
-            <!-- first wide reciever menu -->
+            <!-- first wide receiver menu -->
             <div class="dropdown-container">
-                <label for="WideReciever1" class="label-font">Choose a Wide Reciever:</label>
-                <select name="WideReceiver1" id="WideReceiver1" class="dropdown-font" onchange="updatePlayerInfo('WideReceiver1')">
+                <label for="WR1" class="label-font">Choose a Wide Receiver:</label>
+                <select name="WR1" id="dropdownWR1" class="dropdown-font" onchange="updatePlayerInfo('WR1')">
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
                     {% endfor %} 
                 </select>
             </div>
             
-            <!-- second wide reciever menu -->
+            <!-- second wide receiver menu -->
             <div class="dropdown-container">
-                <label for="WideReciever2" class="label-font">Choose a second Wide Reciever:</label>
-                <select name="WideReceiver2" id="WideReceiver2" class="dropdown-font" onchange="updatePlayerInfo('WideReceiver2')">
+                <label for="WR2" class="label-font">Choose a second Wide Receiver:</label>
+                <select name="WR2" id="dropdownWR2" class="dropdown-font" onchange="updatePlayerInfo('WR2')">
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
                     {% endfor %}
@@ -67,8 +67,8 @@
             
             <!-- tight end menu -->
             <div class="dropdown-container">
-                <label for="TightEnd" class="label-font">Choose a Tight End:</label>
-                <select name="TightEnd" id="TightEnd" class="dropdown-font" onchange="updatePlayerInfo('TightEnd')">
+                <label for="TE" class="label-font">Choose a Tight End:</label>
+                <select name="TE" id="dropdownTE" class="dropdown-font" onchange="updatePlayerInfo('TE')">
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
                     {% endfor %}
@@ -78,7 +78,7 @@
             <!-- flex menu -->
             <div class="dropdown-container">
                 <label for="Flex" class="label-font">Choose a Flex (WR/RB/TE):</label>
-                <select name="Flex" id="Flex" class="dropdown-font" onchange="updatePlayerInfo('Flex')">
+                <select name="Flex" id="dropdownFlex" class="dropdown-font" onchange="updatePlayerInfo('Flex')">
                     {% for name in names %}
                         <option value="{{ name }}">{{ name }}</option>
                     {% endfor %}
@@ -86,15 +86,44 @@
             </div>
         </div>
 
-        <!-- Column for player stats boxes -->
+     
+        <!-- Column for consolidated player stats and predictions -->
         <div class="stats-column">
-            <div class="info-box" id="statsQuarterback">Player stats will be shown here.</div>
-            <div class="info-box" id="statsWideReceiver1">Player stats will be shown here.</div>
-            <div class="info-box" id="statsWideReceiver2">Player stats will be shown here.</div>
-            <div class="info-box" id="statsRunningBack1">Player stats will be shown here.</div>
-            <div class="info-box" id="statsRunningBack2">Player stats will be shown here.</div>
-            <div class="info-box" id="statsTightEnd">Player stats will be shown here.</div>
-            <div class="info-box" id="statsFlex">Player stats will be shown here.</div>
+            <div class="info-box" id="statsBoxQB">
+                <div id="statsContentQB">Player stats will be shown here.</div>
+                <div id="scorePredictionContentQB">Score Prediction: N/A</div>
+                <div id="weeklyScorePredictionContentQB">Weekly Score Prediction: N/A</div>
+            </div>
+            <div class="info-box" id="statsBoxRB1">
+                <div id="statsContentRB1">Player stats will be shown here.</div>
+                <div id="scorePredictionContentRB1">Score Prediction: N/A</div>
+                <div id="weeklyScorePredictionContentRB1">Weekly Score Prediction: N/A</div>
+            </div>
+            <div class="info-box" id="statsBoxRB2">
+                <div id="statsContentRB2">Player stats will be shown here.</div>
+                <div id="scorePredictionContentRB2">Score Prediction: N/A</div>
+                <div id="weeklyScorePredictionContentRB2">Weekly Score Prediction: N/A</div>
+            </div>
+            <div class="info-box" id="statsBoxWR1">
+                <div id="statsContentWR1">Player stats will be shown here.</div>
+                <div id="scorePredictionContentWR1">Score Prediction: N/A</div>
+                <div id="weeklyScorePredictionContentWR1">Weekly Score Prediction: N/A</div>
+            </div>
+            <div class="info-box" id="statsBoxWR2">
+                <div id="statsContentWR2">Player stats will be shown here.</div>
+                <div id="scorePredictionContentWR2">Score Prediction: N/A</div>
+                <div id="weeklyScorePredictionContentWR2">Weekly Score Prediction: N/A</div>
+            </div>
+            <div class="info-box" id="statsBoxTE">
+                <div id="statsContentTE">Player stats will be shown here.</div>
+                <div id="scorePredictionContentTE">Score Prediction: N/A</div>
+                <div id="weeklyScorePredictionContentTE">Weekly Score Prediction: N/A</div>
+            </div>
+            <div class="info-box" id="statsBoxFlex">
+                <div id="statsContentFlex">Player stats will be shown here.</div>
+                <div id="scorePredictionContentFlex">Score Prediction: N/A</div>
+                <div id="weeklyScorePredictionContentFlex">Weekly Score Prediction: N/A</div>
+            </div>
         </div>
 
         <!-- Column for prediction buttons and boxes -->
@@ -102,17 +131,15 @@
         <div class="prediction-column">
             <div class="button-container">
                 <!-- prediction buttons -->
-                <button class="button-font" id="individualPredictionButton" onclick="generateIndividualPrediction()">Individual Player Predictions</button>
                 <button class="button-font" id="teamPredictionButton" onclick="generateTeamPrediction()">Team Predictions</button>
                 <!-- clear menu for a redo -->
                 <button class="button-font" onclick="clearSelections()">Clear Selections</button>
             </div>
             <!-- these boxes will populate once the corresponding buttons are clicked -->
-            <div class="prediction-box" id="individualPredictionBox">Individual player predictions will be shown here.</div>
             <div class="prediction-box" id="teamPredictionBox">Team predictions will be shown here.</div>
         </div>
     </div>
 
-    <script src="static/script.js"></script>
+    <script src="static/scaffolding.js"></script>
 </body>
 </html>
