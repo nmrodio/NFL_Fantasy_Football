@@ -24,7 +24,9 @@ To create a model that accurately predicts the performance of chosen NFL players
 
 **Tools Used :**
 
-<img width="600" alt="image" src="https://github.com/user-attachments/assets/a3148a84-79ce-436c-9632-cae8c41b1728">
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/e9bf631c-3763-42a7-9530-d2fecb2abf0f">
+
+
 
 
 --------------------
@@ -33,7 +35,7 @@ To create a model that accurately predicts the performance of chosen NFL players
 **Data Sources :**
 
 * NFL Score and betting data (Kaggle) : https://www.kaggle.com/datasets/tobycrabtree/nfl-scores-and-betting-data
-* NFL Stats 2012 - 2013 (Kaggle) : https://www.kaggle.com/datasets/philiphyde1/nfl-stats-1999-2022?resource=download&select=offense_weekly_data.csv
+* NFL Stats 2012 - 2023 (Kaggle) : https://www.kaggle.com/datasets/philiphyde1/nfl-stats-1999-2022?resource=download&select=offense_weekly_data.csv
 
 **Goal for Data Processing :**
 
