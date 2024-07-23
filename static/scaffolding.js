@@ -104,9 +104,10 @@ function populateDropdowns() {
         .catch(error => console.error('Error fetching dropdown data:', error));
 }
 
-//make sure the players don't get chosen twice when there are two menus for one position
+
 //have the individual stats of the chose player populate immediately once they are chosen
 // and remain until new player is chosen from the same menu
+
 
 function updatePlayerInfo(player, position) {
     const statsContent = document.getElementById(`statsContent${position}`);
@@ -119,10 +120,9 @@ function updatePlayerInfo(player, position) {
     }
 
     statsContent.textContent = `Player: ${player.name}, Team: ${player.team}, Position: ${player.position}`;
-    scorePredictionContent.textContent = `Score Prediction: ${player.fantasy_2024_score_prediction || 'N/A'}`;
-    weeklyScorePredictionContent.textContent = `Weekly Score Prediction: ${player.fantasy_2024_per_week_score_prediction || 'N/A'}`;
+    scorePredictionContent.textContent = `Score Prediction: ${parseFloat(player.fantasy_2024_score_prediction).toFixed(1) || 'N/A'}`;
+    weeklyScorePredictionContent.textContent = `Weekly Score Prediction: ${parseFloat(player.fantasy_2024_per_week_score_prediction).toFixed(1) || 'N/A'}`;
 }
-
 //start the prediction window and button part of the webpage
 
 //once more than one player is chosen from the drop down menus, all predictions and windows will be under the 
@@ -146,8 +146,8 @@ function generateTeamPrediction() {
 
     const teamPredictionBox = document.getElementById('teamPredictionBox');
     teamPredictionBox.innerHTML = `
-        <p>Total Score Prediction: ${totalScorePrediction}</p>
-        <p>Total Weekly Score Prediction: ${totalWeeklyScorePrediction}</p>
+        <p>Total Score Prediction: ${totalScorePrediction.toFixed(1)}</p>
+        <p>Total Weekly Score Prediction: ${totalWeeklyScorePrediction.toFixed(1)}</p>
     `;
 }
 
